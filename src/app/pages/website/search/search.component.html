@@ -1,0 +1,160 @@
+<section id="bodyContainer">
+  <!-- Flight Search From Starts -->
+  <div id="filterSearchFilter">
+
+    <aside id="flightSearch">
+
+      <form name="searchFlight">
+        <div class="radio-toolbar">
+          <input type="radio" id="radioOneWay" name="trip" value="One Way" checked>
+          <label for="radioOneWay">One Way</label>
+
+          <input type="radio" id="radioRoundTrip" name="trip" value="Round Trip">
+          <label for="radioRoundTrip">Round Trip</label>
+        </div>
+        <div class="sourceDestination">
+          <select class="form-select" name="fromAirport" [(ngModel)]="fromAirport">
+            <option value="">Select Airport</option>
+            <option *ngFor="let item of airports" [value]="item.airportId">{{item.airportName}}, {{item.cityName}}</option>
+          </select>
+        </div>
+        <div class="sourceDestination">
+          <select class="form-select" name="toAirport" [(ngModel)]="toAirport">
+            <option value="">Select Airport</option>
+            <option *ngFor="let item of airports" [value]="item.airportId">{{item.airportName}}, {{item.cityName}}</option>
+          </select>
+        </div>
+        <div id="departureDate">
+          <input type="text" name="travelDate" [(ngModel)]="travelDate" placeholder="Travel Date" onfocus="(this.type='date')" id="travelDate" />
+        </div>
+        <div id="returnDate">
+          <input type="text" placeholder="Return Date" onfocus="(this.type='date')" id="dateOfReturn" />
+        </div>
+        <div>
+          <input type="number" id="noOfTravelers"  min="1" max="8"
+                 placeholder="Number of Travelers">
+        </div>
+        <div>
+          <input id="searchBtn" type="button" (click)="searchFlights()" value="Search" />
+        </div>
+      </form>
+    </aside>
+    <div class="filterDetails">
+      <div id="showFilter" class="showFilter"></div>
+      <div id="showFilterRoundTrip" class="showFilter"></div>
+    </div>
+    <!-- Flight Search from Ends -->
+    <!-- Flight List from Starts -->
+    <div id="FlightResult">
+
+      <div class="flightOnward flightResultWrapper" style="display: block;padding: 1% !important;">
+        <div class="row">
+          <div class="col-3">
+            Flight Name
+          </div>
+          <div class="col-2">
+            Departure
+          </div>
+          <div class="col-2">
+            Arrival
+          </div>
+          <div class="col-3">
+            Fare
+          </div>
+          <div class="col-2">
+          </div>
+        </div>
+      </div>
+      <div class="flightOnward flightResultWrapper" style="display: block;padding: 1% !important;" *ngFor="let flight of flightList">
+        <div class="row">
+          <div class="col-3">
+            <div class="row">
+              <div class="col-4">
+                <img class="logo"
+                     [src]="flight.vendorLogoUrl">
+              </div>
+              <div class="col-8">
+                <div>{{flight.vendorName}}</div>
+                <div>{{flight.flightNumber}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2"> {{flight.departureTime}}
+          </div>
+          <div class="col-2"> {{flight.arrivalTime}}
+          </div>
+          <div class="col-3"> {{flight.price}}
+          </div>
+          <div class="col-2">
+            <input type="button" class="bookTicBtn" (click)="bookTicket(flight.flightId)" value="Book Now">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  <!-- Flight List from Ends -->
+
+</section>
+
+<!-- Modal Dialogue Window -->
+<div class="modal" id="bookModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">
+            <label for="">Name</label>
+            <input type="text" [(ngModel)]="passengerObj.travelerName" class="form-control" />
+          </div>
+          <div class="col-3">
+            <label for="">Contact No</label>
+            <input type="text" [(ngModel)]="passengerObj.contactNo" class="form-control" />
+          </div>
+          <div class="col-3">
+            <label for="">Boarding Card</label>
+            <input type="text" [(ngModel)]="passengerObj.aadharNo" class="form-control" />
+          </div>
+          <div class="col-3">
+            <button type="button" class="btn btn-primary" (click)="addPassenger()">Add</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Sr No</th>
+                  <th>Name</th>
+                  <th>Contact No</th>
+                  <th>Boarding No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of passengerList; let sr = index">
+                  <td>{{sr+1}}</td>
+                  <td>{{item.travelerName}}</td>
+                  <td>{{item.contactNo}}</td>
+                  <td>{{item.aadharNo}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-success" (click)="onBookTicket()">Book Ticket</button>
+      </div>
+    </div>
+  </div>
+</div>

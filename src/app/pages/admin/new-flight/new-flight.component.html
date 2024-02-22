@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <label for="">Flight No</label>
+      <input type="text" class="form-control" [(ngModel)]="flightObj.flightNumber" placeholder="Enter Flight No">
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-3">
+      <label for="">Scheduled Date</label>
+      <input type="date" class="form-control" [(ngModel)]="flightObj.travelDate" placeholder="Select Travel Date">
+    </div>
+    <div class="col-3">
+      <label for="">Departure Time</label>
+      <input type="text" class="form-control" [(ngModel)]="flightObj.departureTime" placeholder="Enter Departure Time">
+    </div>
+    <div class="col-3">
+      <label for="">Arrival Time</label>
+      <input type="text" class="form-control" [(ngModel)]="flightObj.arrivalTime" placeholder="Enter Arrival Time">
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-4">
+      <label for="">Select Departure Airport</label>
+      <select class="form-select" [(ngModel)]="flightObj.departureAirportId">
+        <option value="">Select Airport</option>
+        <option *ngFor="let item of airportList" [value]="item.airportId">{{item.airportName}}, {{item.cityName}}</option>
+      </select>
+    </div>
+    <div class="col-4">
+      <label for="">Select Arrival Airport</label>
+      <select class="form-select" [(ngModel)]="flightObj.arrivalAirportId">
+        <option value="">Select Airport</option>
+        <option *ngFor="let item of airportList" [value]="item.airportId">{{item.airportName}}, {{item.cityName}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-3">
+      <label for="">Total Seats</label>
+      <input type="text" class="form-control" [(ngModel)]="flightObj.totalSeats" placeholder="Enter Total Seats">
+    </div>
+    <div class="col-3">
+      <label for="">Total Price</label>
+      <input type="number" class="form-control" [(ngModel)]="flightObj.price" placeholder="Enter Price">
+    </div>
+  </div>
+  <div class="row pt-5">
+    <div class="col-3 text-center">
+      <button class="btn btn-secondary">Reset</button>
+    </div>
+    <div class="col-3 text-center">
+      <button class="btn btn-success" (click)="onSaveFlight()">Create Flight</button>
+    </div>
+  </div>
+</div>
+
